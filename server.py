@@ -26,10 +26,11 @@ def server_program():
         print("from connected user: " + str(data))
         
         #protocol
-        splitdata = data.split(';')
+        splitdata = data.split(";")
         if splitdata[0] == 'TRANS':
             data = translator.translate(splitdata[1],splitdata[2]).text
         #data = input(' -> ')
+        data = translator.translate(data).text
         conn.send(data.encode())  # send data to the client
 
     conn.close()  # close the connection

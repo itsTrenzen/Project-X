@@ -6,7 +6,7 @@ import time
  
 # Initialize the recognizer
 r = sr.Recognizer()
-MyText = ' '
+MyText = 'r'
 # Function to convert text to
 # speech
 """
@@ -22,7 +22,7 @@ def SpeakText(command):
 # speak
 def record():
     while(1):   
-     
+        
         try:
          
             # use the microphone as source for input.
@@ -37,7 +37,8 @@ def record():
                 audio2 = r.listen(source2)
              
                 # Using google to recognize audio
-                MyText = r.recognize_google(audio2)
+                global MyText
+                MyText = r.recognize_google(audio2, language="de-DE")
                 MyText = MyText.lower()
  
                 print(MyText)
@@ -59,10 +60,12 @@ def client_program():
     client_socket.connect((host, port))  # connect to the server
 
     #message = input(" -> ")  # take input
+    global MyText
     message = MyText
 
     while message.lower().strip() != 'bye':
-        
+        message = 'Hallo großer'
+        message = MyText
         client_socket.send(message.encode())  # send message
         data = client_socket.recv(1024).decode()  # receive response
 
@@ -70,7 +73,7 @@ def client_program():
 
         #message = input(" -> ")  # again take input
         message = MyText
-        time.sleep(0.5)
+        time.sleep(0.1)
 
     client_socket.close()  # close the connection
 
