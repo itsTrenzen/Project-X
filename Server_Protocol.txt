@@ -1,0 +1,12 @@
+Server protocol
+
+Seperator: ';' (Semicolon)
+
+Message:                  | Response:
+--------------------------|------------------------
+TRANS;<Text>;<dest>       | Translated text in chosen language
+                          |
+                          |
+                          |
+                          |
+                          |

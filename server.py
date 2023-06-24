@@ -2,6 +2,8 @@ from googletrans import Translator
 import socket
 
 def server_program():
+    translator = Translator()
+    #print(translator.translate('Hallo, es funktioniert').text)
     # get the hostname
     host = socket.gethostname()
     port = 5000  # initiate port no above 1024
@@ -21,7 +23,12 @@ def server_program():
             # if data is not received break
             break
         print("from connected user: " + str(data))
-        data = input(' -> ')
+        
+        #protocol
+        splitdata = data.split(';')
+        if splitdata[0] == 'TRANS':
+            data = translator.translate(splitdata[1],splitdata[2]).text
+        #data = input(' -> ')
         conn.send(data.encode())  # send data to the client
 
     conn.close()  # close the connection
@@ -29,6 +36,6 @@ def server_program():
 
 if __name__ == '__main__':
     server_program()
-#translator = Translator()
-#print(translator.translate('Hallo, es funktioniert').text)
+
+
 
