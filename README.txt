@@ -1,6 +1,3 @@
-# Project X
- An upcoming revolution
-
 These steps are required to run the program:
 
 1. Perform the following commands:
