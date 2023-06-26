@@ -3,41 +3,32 @@ import socket
 
 def server_program():
     translator = Translator()
-    #print(translator.translate('Hallo, es funktioniert').text)
-    # get the hostname
     host = socket.gethostname()
-    port = 5000  # initiate port no above 1024
+    port = 5000
 
-    server_socket = socket.socket()  # get instance
-    # look closely. The bind() function takes tuple as argument
-    server_socket.bind((host, port))  # bind host address and port together
-
-    # configure how many client the server can listen simultaneously
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind((host, port))
     server_socket.listen(3)
-    conn, address = server_socket.accept()  # accept new connection
+    print("Server started. Waiting for connections...")
+
+    conn, address = server_socket.accept()
     print("Connection from: " + str(address))
-    
+
     while True:
-        # receive data stream. it won't accept data packet greater than 1024 bytes
         data = conn.recv(1024).decode()
         if not data:
-            # if data is not received break
             break
-        print("from connected user: " + str(data))
-        
-        #protocol
+        print("From connected user: " + str(data))
+
         splitdata = data.split(";")
         if splitdata[0] == 'TRANS':
-            data = translator.translate(splitdata[1],splitdata[2]).text
-        #data = input(' -> ')
-        data = translator.translate(data).text
-        conn.send(data.encode())  # send data to the client
+            translated_text = translator.translate(splitdata[1], dest=splitdata[2]).text
+            conn.send(translated_text.encode())
+        else:
+            translated_text = translator.translate(data).text
+            conn.send(translated_text.encode())
 
-    conn.close()  # close the connection
-
+    conn.close()
 
 if __name__ == '__main__':
     server_program()
-
-
-
