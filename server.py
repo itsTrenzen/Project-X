@@ -21,9 +21,13 @@ def server_program():
         print("From connected user: " + str(data))
 
         splitdata = data.split(";")
-        if splitdata[0] == 'TRANS':
+        if splitdata[0] == '?TRANS':
             translated_text = translator.translate(splitdata[1], dest=splitdata[2]).text
             conn.send(translated_text.encode())
+        
+        elif splitdata[0] == '?TEST':
+            conn.send("Das kam an".encode())
+        
         else:
             translated_text = translator.translate(data).text
             conn.send(translated_text.encode())

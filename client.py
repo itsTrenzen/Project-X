@@ -16,12 +16,11 @@ def client_program():
     client_socket = socket.socket()  # instantiate
     client_socket.connect((host, port))  # connect to the server
 
-    # message = input(" ->ö ")  # take input
     global running
     while running:
         try:
             with sr.Microphone() as source2:
-                r.adjust_for_ambient_noise(source2, duration=0.2)
+                r.adjust_for_ambient_noise(source2, duration=0.5)
                 audio2 = r.listen(source2)
                 global MyText
                 MyText = r.recognize_google(audio2, language="de-DE")
@@ -34,11 +33,12 @@ def client_program():
 
         if MyText:
             print(MyText)
-            message = MyText
+            message = '?TRANS;' + MyText + ';en'
             if MyText == 'beenden':
                 client_socket.close()
                 running = False
             else:
+                MyText = False
                 client_socket.send(message.encode())  # send message
                 data = client_socket.recv(1024).decode()  # receive response
                 handle_response(data)
