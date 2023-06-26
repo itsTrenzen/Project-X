@@ -1,7 +1,5 @@
 import socket
 import speech_recognition as sr
-# import pyttsx3
-from threading import Thread
 import time
 
 r = sr.Recognizer()
