@@ -5,7 +5,7 @@ from threading import Thread
 import time
 
 r = sr.Recognizer()
-
+running = True
 
 def handle_response(data):
     print('Received from server:', data)  # show in terminal
@@ -19,8 +19,8 @@ def client_program():
     client_socket.connect((host, port))  # connect to the server
 
     # message = input(" ->ö ")  # take input
-
-    while True:
+    global running
+    while running:
         try:
             with sr.Microphone() as source2:
                 r.adjust_for_ambient_noise(source2, duration=0.2)
@@ -37,12 +37,15 @@ def client_program():
         if MyText:
             print(MyText)
             message = MyText
+            if MyText == 'beenden':
+                client_socket.close()
+                running = False
+            else:
+                client_socket.send(message.encode())  # send message
+                data = client_socket.recv(1024).decode()  # receive response
+                handle_response(data)
 
-            client_socket.send(message.encode())  # send message
-            data = client_socket.recv(1024).decode()  # receive response
-            handle_response(data)
-
-            time.sleep(0.1)
+                time.sleep(0.1)
 
     client_socket.close()  # close the connection
 
