@@ -2,11 +2,8 @@ Server protocol
 
 Seperator: ';' (Semicolon)
 
-Message:                  | Response:
---------------------------|------------------------
-?TRANS;<Text>;<dest>      | Translated text in chosen language
-?TEST;                    | If server was reached the message 'Das kam an' comes back
-                          |
-                          |
-                          |
-                          |
+COMMAND        FORMAT                                DESCRIPTION
+---------------------------------------------------------------------
+?TRANS         ?TRANS;[text];[dest]                  Translates the provided text to the specified destination language
+?TEST          ?TEST                                 Sends a test response from the server
+?DEFAULT       [text]                                Translates the provided text using the default translation
