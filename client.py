@@ -4,6 +4,7 @@ import time
 
 r = sr.Recognizer()
 running = True
+MyText = False
 
 def handle_response(data):
     print('Received from server:', data)  # show in terminal
@@ -20,7 +21,7 @@ def client_program():
     while running:
         try:
             with sr.Microphone() as source2:
-                r.adjust_for_ambient_noise(source2, duration=0.5)
+                r.adjust_for_ambient_noise(source2, duration=0.2)
                 audio2 = r.listen(source2)
                 global MyText
                 MyText = r.recognize_google(audio2, language="de-DE")
@@ -38,7 +39,7 @@ def client_program():
                 client_socket.close()
                 running = False
             else:
-                MyText = False
+                MyText = False #prevents the resending of old messages
                 client_socket.send(message.encode())  # send message
                 data = client_socket.recv(1024).decode()  # receive response
                 handle_response(data)

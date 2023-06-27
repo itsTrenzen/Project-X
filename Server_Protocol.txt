@@ -4,8 +4,8 @@ Seperator: ';' (Semicolon)
 
 Message:                  | Response:
 --------------------------|------------------------
-TRANS;<Text>;<dest>       | Translated text in chosen language
-                          |
+?TRANS;<Text>;<dest>      | Translated text in chosen language
+?TEST;                    | If server was reached the message 'Das kam an' comes back
                           |
                           |
                           |
