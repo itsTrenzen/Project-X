@@ -38,25 +38,25 @@ def server_program():
     conn.close()
 
 #API functions
-def createProject(name, desc, isPublic, isArchived, isCollaborative):
+def createProject(name: str, desc: str, isPublic: bool, isArchived: bool, isCollaborative: bool):
     response = Resemble.v2.projects.create(name, desc, isPublic, isCollaborative, isArchived)
     project = response['item']
     return project
 
-def getProject(uuid):
+def getProject(uuid: str):
     response = Resemble.v2.projects.get(uuid)
     project = response['item']
     return project
 
-def getAllProjects(page, pageSize):
+def getAllProjects(page: int, pageSize: int):
     respone = Resemble.v2.projects.all(page, pageSize)
     projects = respone['items']
     return projects
 
-def updateProject(uuid, name, desc, isPublic, isArchived, isCollaborative):
+def updateProject(uuid: str, name: str, desc: str, isPublic: bool, isArchived: bool, isCollaborative: bool):
     response = Resemble.v2.projects.update(uuid, name, desc, isPublic, isCollaborative, isArchived)
 
-def deleteProject(uuid):
+def deleteProject(uuid: str):
     response = Resemble.v2.projects.delete(uuid)
 
 if __name__ == '__main__':
