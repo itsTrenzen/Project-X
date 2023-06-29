@@ -1,10 +1,8 @@
 # Project X
  An upcoming revolution
 
-These steps are required to run the program:
-
-1. Perform the following commands:
-	pip install pyaudio
-	pip instal googletrans==4.0.0-rc1
-	pip install SpeechRecognition pydub
-
+# The following libraries are required to run the program:
+    1. pip install resemble
+    2. pip install speechrecognition
+    3. pip install pyaudio
+    4. pip install googletrans==4.0.0-rc1
