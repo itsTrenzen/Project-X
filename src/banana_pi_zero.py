@@ -22,13 +22,14 @@ def send_audio():
                         rate=sample_rate,
                         frames_per_buffer=chunk_size,
                         input=True)
-
+    
     print("Streaming audio...")
 
     try:
         while True:
             data = stream.read(chunk_size)
             client_socket.sendall(data)
+            
     except KeyboardInterrupt:
         print("Interrupted")
     finally:

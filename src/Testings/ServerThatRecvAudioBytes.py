@@ -1,9 +1,23 @@
 import socket
 import speech_recognition as sr
+import wave
 
 # Server details
 host = socket.gethostname() 
 port = 5000  # Server port
+
+def transcribe_audio(data):
+    
+    r = sr.Recognizer()
+    audio = sr.AudioData(data, sample_rate=44100, sample_width=2)  # Adjust sample rate and sample width if needed
+
+    try:
+        text = r.recognize_google(audio)
+        return text
+    except sr.UnknownValueError:
+        return "Speech recognition could not understand the audio"
+    except sr.RequestError as e:
+        return "Error occurred during speech recognition: " + str(e)
 
 def receive_audio():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,8 +37,9 @@ def receive_audio():
                 break
             #print("Received audio:", data)
             #audio = sr.AudioData(data, sample_rate=44100, sample_width=2)
-            #ext = r.recognize_google(audio, language='de-DE')
+            #text = r.recognize_google(audio, language='de-DE')
             #print(text)
+            #text = transcribe_audio(data)
             print(data)
     except KeyboardInterrupt:
         print("Interrupted")
