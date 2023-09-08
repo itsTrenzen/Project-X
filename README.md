@@ -1,5 +1,5 @@
 # Project X
- An upcoming revolution
+- speech to text translation
 
 # The following libraries are required to run the program:
     
